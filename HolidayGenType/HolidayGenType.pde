@@ -1,7 +1,7 @@
 //Sam Nosenzo
 //12/3/16
 //Final Project for Visual Thinking w/ Aaron Henderson
-
+import com.hamoid.*;
 import geomerative.*;
 ArrayList<Mover> movs;
 RFont font;
@@ -21,6 +21,9 @@ int changeCounter = 0;
 int resetCounter = 200;
 
 float textSegmentLength = 20;
+
+
+VideoExport ve;
 
 void setup(){
   size(1440, 1080);
@@ -51,6 +54,8 @@ void setup(){
   initialav = new PVector(width/2, 200);
   initialdist = PVector.sub(targav, initialav).mag();
   
+  ve = new VideoExport(this, "holidaytype.mp4");
+  ve.startMovie();
 }
 
 
@@ -136,6 +141,7 @@ void draw(){
     }
   }
     
+  ve.saveFrame();
   
 }
 
@@ -195,5 +201,9 @@ void keyPressed(){
       //setTargets(random(textsize*2, width-textsize*2), random(textsize/2, height-textsize/2));
       //cycle++;
     //}
+  }
+  if(key == 'q') {
+    ve.endMovie();
+    exit();
   }
 }

@@ -1,3 +1,6 @@
+import com.hamoid.*;
+ VideoExport ve;
+
 int numTrunks = 6;
 ArrayList<Branch> branches;
 PVector screenCenter;
@@ -8,7 +11,8 @@ void setup() {
   branches = new ArrayList<Branch>();
   screenCenter = new PVector(width/2, height/2);
   initTrunks();
-  
+  ve = new VideoExport(this, "centersnowflake.mp4");
+  ve.startMovie();
   
 }
 
@@ -20,7 +24,6 @@ void draw() {
   boolean branch = false;
   branch = random(10) > 8 ? true : false;
   for(int i = 0; i < branches.size(); i++) {
-    
     Branch b = branches.get(i);
     float strokeMapping = map(b.len, b.initLen, 0, 100, 0);
     stroke(255, strokeMapping);
@@ -34,10 +37,11 @@ void draw() {
     b.display();
     if(i == branches.size() -1 && b.len < 0) {
       background(0, 0, 150);
-      numTrunks = (int) random(4, 11);
+      numTrunks = (int) random(5, 12);
       initTrunks();
     }
   } 
+  ve.saveFrame();
 }
 
 
@@ -48,7 +52,15 @@ void initTrunks() {
   float speed = random(2, 3);
   
   for(int i = 0; i < numTrunks; i++) {
-    Branch b = new Branch(screenCenter, PVector.fromAngle(randomOffset + (-1*TWO_PI/numTrunks)).mult(speed), 400);
+    Branch b = new Branch(screenCenter, PVector.fromAngle(randomOffset + i*(TWO_PI/numTrunks)).mult(speed), 300);
     branches.add(b);
+  }
+  
+}
+
+void keyPressed() {
+  if(key == 'q') {
+    ve.endMovie();
+    exit();
   }
 }

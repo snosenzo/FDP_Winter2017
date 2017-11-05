@@ -1,13 +1,19 @@
+import com.hamoid.*;
+
+VideoExport ve;
+
 ArrayList<Flake> flakes;
 int maxFlakes = 400;
 float maxSize = 20;
+
+
 void setup() {
-  size(1440, 1080);
+  size(1920, 410);
   background(0, 0, 150);
   flakes = new ArrayList<Flake>();
-  
+  ve = new VideoExport(this, "fallingsnowSquare.mp4");
+  ve.startMovie();
 }
-
 
 
 void draw() {
@@ -27,6 +33,14 @@ void draw() {
       flakes.remove(i);
     }
   }
+  ve.saveFrame();
   
-  
+}
+
+
+void keyPressed() {
+  if(key == 'q') {
+    ve.endMovie();
+    exit();
+  }
 }
