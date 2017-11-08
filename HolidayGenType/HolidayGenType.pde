@@ -62,10 +62,10 @@ void setup(){
 void draw(){
   //background(223, 37, 11);
   noStroke();
-  fill(70,1);
+  fill(0, 0, 100,10);
   rect(0, 0, width, height);
   
-  fill(prim[cycle%prim.length], 40);
+  fill(prim[cycle%prim.length], 100);
   //noFill();
   
   beginShape(POLYGON);

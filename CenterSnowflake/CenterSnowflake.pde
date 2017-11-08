@@ -13,6 +13,7 @@ void setup() {
   initTrunks();
   ve = new VideoExport(this, "centersnowflake.mp4");
   ve.startMovie();
+  strokeCap(SQUARE);
   
 }
 
@@ -25,10 +26,9 @@ void draw() {
   branch = random(10) > 8 ? true : false;
   for(int i = 0; i < branches.size(); i++) {
     Branch b = branches.get(i);
-    float strokeMapping = map(b.len, b.initLen, 0, 100, 0);
+    float strokeMapping = map(b.len, b.initLen, 0, 180, 5);
     stroke(255, strokeMapping);
-    float weightMapping = map(PVector.sub(b.loc, screenCenter).mag(), 0, screenCenter.x, 6, 1);
-    strokeWeight(weightMapping);
+    //float weightMapping = map(PVector.sub(b.loc, screenCenter).mag(), 0, screenCenter.x, 6, 1);
     if(branch) {
       println("branch");
       b.addBranch();
@@ -52,7 +52,7 @@ void initTrunks() {
   float speed = random(2, 3);
   
   for(int i = 0; i < numTrunks; i++) {
-    Branch b = new Branch(screenCenter, PVector.fromAngle(randomOffset + i*(TWO_PI/numTrunks)).mult(speed), 300);
+    Branch b = new Branch(screenCenter, PVector.fromAngle(randomOffset + i*(TWO_PI/numTrunks)).mult(speed), 600, 20);
     branches.add(b);
   }
   
